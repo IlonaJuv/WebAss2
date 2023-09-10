@@ -1,7 +1,6 @@
 // TODO: user interface
 
 import {Document, Types} from 'mongoose';
-import {type} from 'os';
 
 interface User extends Document {
   user_name: string;
