@@ -39,15 +39,7 @@ const catSchema = new Schema<Cat>({
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-    },
-    user_name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
+    }
   },
 });
 

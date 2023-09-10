@@ -1,4 +1,3 @@
-import {query} from 'express-validator';
 // TODO: create following functions:
 // - catGetByUser - get all cats by current user id
 // - catGetByBoundingBox - get all cats by bounding box coordinates (getJSON)
@@ -165,7 +164,7 @@ const catPutAdmin = async (
       next(new CustomError(messages, 400));
       return;
     }
-    if ((req.user as User).role !== 'admin') {
+    if (res.locals.role !== 'admin') {
       next(new CustomError('admin only', 403));
       return;
     }
@@ -234,7 +233,8 @@ const catDeleteAdmin = async (
       next(new CustomError(messages, 400));
       return;
     }
-    if ((req.user as User).role !== 'admin') {
+    if (res.locals.role !== 'admin') {
+      console.log("role", res.locals.role);
       next(new CustomError('admin only', 403));
       return;
     }

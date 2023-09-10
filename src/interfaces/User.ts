@@ -19,11 +19,6 @@ interface UserOutput {
   email: string;
 }
 
-interface UserTest {
-  user_name: string;
-  email: string;
-  role?: 'user';
-  password: string;
-}
+type UserTest = Partial<User>;
 
 export {User, LoginUser, UserOutput, UserTest};
