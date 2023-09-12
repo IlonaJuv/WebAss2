@@ -8,7 +8,7 @@
 // - catGet - get cat by id
 // - catListGet - get all cats
 // - catPost - create new cat
-import {BBox, Point} from 'geojson';
+import {Point} from 'geojson';
 import {Request, Response, NextFunction} from 'express';
 import CustomError from '../../classes/CustomError';
 import {Cat} from '../../interfaces/Cat';
@@ -164,13 +164,15 @@ const catPutAdmin = async (
       next(new CustomError(messages, 400));
       return;
     }
-    if (res.locals.role !== 'admin') {
+    if ((req.user as User).role !== 'admin') {
       next(new CustomError('admin only', 403));
+
       return;
     }
     const cat = await Catmodel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+
     if (!cat) {
       next(new CustomError("couldn't update cat", 404));
       return;
@@ -233,8 +235,7 @@ const catDeleteAdmin = async (
       next(new CustomError(messages, 400));
       return;
     }
-    if (res.locals.role !== 'admin') {
-      console.log("role", res.locals.role);
+    if ((req.user as User).role !== 'admin') {
       next(new CustomError('admin only', 403));
       return;
     }
